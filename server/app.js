@@ -42,12 +42,12 @@ app.post('/addBuddy', (req, res) => {
 })
 
 app.post('/uploadImg', (req, res) => {
-  let uploadPath = path.join(rootPath, '../','my-wechat/public/mock/img')
+  let uploadPath = path.join(rootPath, '../','client/public/mock/img')
   uploadImg(req, res, uploadPath)
 })
 
 app.post('/client_sendImg', (req, res) => {                    // 处理用户发送图片
-  let uploadPath = path.join(rootPath, '../','my-wechat/public/mock/chat_img')
+  let uploadPath = path.join(rootPath, '../','client/public/mock/chat_img')
   client_sendImg(req, res, uploadPath)
 })
 

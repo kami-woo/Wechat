@@ -75,23 +75,19 @@ export default {
   .login-wrap {
     position: relative;
     height: 100%;
-    // background: url('../../assets/bg.jpg');
-    // background-size: cover;
 
     .loginCard {
-      opacity: .9;
+      opacity: .93;
       position: absolute;
       top: 50%;
       left: 70%;
       border: 1px solid #ccc;
-      // height: 180px;
       padding: 20px;
       width: 300px;
       border-radius: 10px;
       background-color: #eee;
 
       .loginTabs {
-        // height: 180px;
         display: flex;
         flex-direction: column;
         align-items: center;

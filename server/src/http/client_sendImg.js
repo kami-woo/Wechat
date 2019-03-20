@@ -28,15 +28,6 @@ module.exports = (req, res, uploadPath) => {
 
     fs.rename(file.path, newPath, (err) => {
       if(err) throw err
-      // MongoClient.connect(url, (err, db) => {
-      //   if(err) throw err
-      //   db.db('weChat').collection(roomId).insertOne(data, (err) => {
-      //     if(err) throw err
-      //     console.log('图片发送服务器成功')
-      //     res.send(data)
-      //     db.close()
-      //   })
-      // })
       console.log('图片存储服务器成功')
       res.send(data)
     })

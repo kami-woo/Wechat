@@ -39,11 +39,6 @@ module.exports = (io) => {
       console.log(id, '退出连接')
     })
 
-    socket.on('client_img', (data) => {              // 用户发送图片
-      // console.log(data)
-      console.log(data)
-    })
-
     async function handleMessage(data) {
       await receiveMsg(data)
       let receiver = data.content.receiver

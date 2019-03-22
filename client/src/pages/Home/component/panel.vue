@@ -25,6 +25,9 @@ export default {
 <style lang="less" scoped>
   .panel {
     width: 280px;
+    display: flex;
+    flex-direction: column;
     background-color: #2e3238;
+    // border: 4px solid blue;
   }
 </style>

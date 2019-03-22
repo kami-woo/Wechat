@@ -1,7 +1,7 @@
-module.exports = (roomName, db, membersObj) => {
+module.exports = (roomName, db, list) => {
   let db_wechat = db.db('weChat')
   let obj = {
-    idList: membersObj.idList,
+    idList: list,
     roomId: roomName
   }
   db_wechat.collection('roomMembers').insertOne(obj, function (err, res) {

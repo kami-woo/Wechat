@@ -73,15 +73,14 @@ export default {
   },
   SOCKET_server_userList(state, data) {                      // 接收用户列表，并处理unread值
     let roomList = state.roomList
-    // console.log(data)
-    if(roomList.length) {
-      for(let i=0; i<data.length; i++) {
-        let num = roomList[i] == undefined ? 0 : roomList[i].unread
-        roomList[i] = data[i]
-        roomList[i].unread += num
-      }
+    for(let i=0; i<data.length; i++) {
+      if(roomList[i])
+        data[i].unread += roomList[i].unread
+      else state.msgList[data[i].roomName] = []
     }
-    else state.roomList = data
+    state.roomList = data
+    console.log(state.roomList)
+    sessionStorage.setItem('state', JSON.stringify(state))
   },
   client_sendImg(state, data) {                              // 用户发送图片
     let formData = new FormData()
@@ -103,16 +102,43 @@ export default {
     axios.post('/api/client_sendImg', formData, {
       headers: {'Content-Type': 'multipart/form-data'}
     }).then((res) => {
-      // state.userInfo.imgUrl = res.data
-      // console.log(res)
-      // sessionStorage.setItem('state', JSON.stringify(state))
       data._this.$socket.emit('client_msg', res.data)
-      // delete res.data._id
-      // console.log(res.data)
       state.msgList[res.data.roomId].push(res.data.content)
     }).catch((err) => {
       console.log(err)
     })
+  },
+  handleShowCard(state, data) {
+    // axios.post('/api/addBuddy', {
+    //   idList: [state.userInfo.id, id]
+    // }).then((res) => {
+    //   // console.log(res)
+    //   // this.handleRoomList()
+    // }).catch((err) => {
+    //   console.log(err)
+    // })
+    state.cardInfo = {
+      isShow: true,
+      id: data.id,
+      imgUrl: data.imgUrl,
+      name: data.name
+    }
+  },
+  handleHiddenCard(state) {
+    state.cardInfo.isShow = false
+  },
+  SOCKET_server_addFriend(state, data) {                   // 好友在线，发送验证消息
+    console.log(data)
+    state.re_cardInfo = {
+      isShow: true,
+      imgUrl: data.imgUrl,
+      name: data.name,
+      addition: data.addition,
+      id: data.sendId
+    }
+  },
+  handleHiddenReCard(state) {
+    state.re_cardInfo.isShow = false
   }
 }
 

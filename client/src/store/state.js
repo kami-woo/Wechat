@@ -13,7 +13,19 @@ let init = {
     chatId: '',
   },
   roomList: [],
-  msgList: {}
+  msgList: {},
+  cardInfo: {
+    isShow: false,
+    imgUrl: '',
+    name: '',
+    id: ''
+  },
+  re_cardInfo: {           // 接受
+    isShow: false,
+    imgUrl: '',
+    name: '',
+    addition: '',
+  }
 }
 
 let state = sessionStorage.getItem('state') ? JSON.parse(sessionStorage.getItem('state')) : init

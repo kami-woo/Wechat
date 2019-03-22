@@ -2,7 +2,7 @@
   <div class="search">
     <input class="search-box" @keyup.enter="handleEnter" placeholder="搜索" ref="search_box"/>
     <div class="search-result" :class="{hidden: isActive}" ref="search_result">
-      <div v-for="item of userSearch" @click="handleAddBuddy(item.id)">
+      <div v-for="item of userSearch" @click="handleShowCard(item)">
         <img :src="item.imgUrl" class="result-img">
         <div class="result-name">{{ item.name }}</div>
       </div>
@@ -23,7 +23,7 @@ export default {
   methods: {
     handleEnter(e) {
       axios.post('/api/queryUser', {
-        account: e.target.value
+        name: e.target.value
       }).then((res) => {
         if(res.data && res.data.success) {
           this.userSearch = res.data.userMessage
@@ -33,21 +33,11 @@ export default {
         console.log(res)
       })
     },
-    handleAddBuddy(buddy_id) {
-      axios.post('/api/addBuddy', {
-        idList: [this.userInfo.id, buddy_id]
-      }).then((res) => {
-        console.log(res)
-        this.handleRoomList()
-      }).catch((err) => {
-        console.log(err)
-      })
-    },
     handleBodyClick(e) {
       if(e.target !== this.$refs.search_result && e.target !== this.$refs.search_box)
         this.isActive = true
     },
-    ...mapMutations(['handleRoomList'])
+    ...mapMutations(['handleShowCard'])
   },
   computed: mapState(['userInfo', 'roomList']),
   mounted() {

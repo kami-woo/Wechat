@@ -1,13 +1,12 @@
 const { MongoClient, url } = require('../../config.js')
 
-module.exports = (userName, res) => {
+module.exports = (name, res) => {
   MongoClient.connect(url, (err, db) => {
     if(err) throw err
     let dbo = db.db("weChat")
-    dbo.collection('user').find(userName).toArray((err, result) => {
+    dbo.collection('user').find(name).toArray((err, result) => {
       if(err) throw err
       if(result.length) {
-        console.log(result)
         let data = {
           success: true,
           userMessage: []

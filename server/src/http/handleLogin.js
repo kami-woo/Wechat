@@ -35,7 +35,7 @@ module.exports = (loginData, res) => {
     }
     else {
       user.name = loginData.user_name
-      user.id = user.name + Date.now()
+      user.id = user.account + Date.now()
       user.imgUrl = 'mock/init.jpg'
       user.roomMessage = []
       dbo.collection('user').insertOne(user, (err, result) => {

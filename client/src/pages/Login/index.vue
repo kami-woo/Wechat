@@ -42,7 +42,7 @@ export default {
   },
   methods: {
     handleLogin(isRegister) {
-      axios.post('/api/home', {
+      axios.post('/api/login', {
         user_name: this.user_name,
         user_account: this.user_account,
         user_password: this.user_password,
@@ -59,8 +59,10 @@ export default {
           }
         }
         else {
-          console.log(res.data)
-          alert('注册成功')
+          if(res.data.success) {
+            alert('注册成功')
+          }
+          else alert('注册失败，账号重复')
         }
       }).catch((res) => {
         console.log(res)

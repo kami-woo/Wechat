@@ -8,6 +8,7 @@
       <div class="info">
         <img class="img" :src="cardInfo.imgUrl">
         <span class="name">{{ cardInfo.name }}</span>
+        <span name="account">账号：{{ cardInfo.account }}</span>
       </div>
       <div class="addition">
         <span class="text">附加消息：</span>
@@ -39,7 +40,8 @@ export default {
         imgUrl: this.userInfo.imgUrl,
         name: this.userInfo.name,
         sendId: this.userInfo.id,
-        receiveId: this.cardInfo.id
+        receiveId: this.cardInfo.id,
+        account: this.userInfo.account
       }
       this.$socket.emit('client_addFriend', data)
 
@@ -96,7 +98,7 @@ export default {
         }
 
         .name {
-          margin-top: 20px;
+          margin-top: 8px;
           font-size: 20px;
         }
       }

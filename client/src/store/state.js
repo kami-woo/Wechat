@@ -1,5 +1,6 @@
 let init = {
   isLogin: false,
+  changeBg: -1,
   userInfo: {
     name: '',
     account: '',
@@ -18,13 +19,15 @@ let init = {
     isShow: false,
     imgUrl: '',
     name: '',
-    id: ''
+    id: '',
+    account: ''
   },
   re_cardInfo: {           // 接受
     isShow: false,
     imgUrl: '',
     name: '',
     addition: '',
+    account: ''
   }
 }
 

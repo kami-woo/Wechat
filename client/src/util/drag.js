@@ -2,7 +2,8 @@ export default (document, dom) => {
 
    dom.onmousedown = function(e) {
     
-    if(e.target.getAttribute('name') === 'addition')
+    let name = e.target.getAttribute('name')
+    if(name === 'addition' || name === 'account')
       return
 
     let x = dom.offsetLeft

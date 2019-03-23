@@ -2,7 +2,8 @@
   <div class="box-ft">
     <div class="toolBar">
       <input type="file" ref="chat_file" accept="image/jpeg,image/jpg,image/png,image/svg" class="input" @change="handleChangeFile">
-      <span class="iconfont" @click="handleClickFile">&#xe726;</span>
+      <span class="iconfont">&#xe604;</span>
+      <span class="iconfont" @click="handleClickFile">&#xe605;</span>
     </div>
     <textarea class="editArea" ref='editArea' @keyup.enter="sendMsg"></textarea>
     <div class="action">
@@ -32,16 +33,11 @@ export default {
         return;
       }
       
-      // this.imgMessage(file)
-      // let formData = new FormData()
-      // formData.append('file', file)
       let data = {
         file,
         _this: this
       }
       this.client_sendImg(data)
-      // this.$socket.emit('client_img', formData)
-      // formData.append('id', state.userInfo.id)
 
       reader.onload = (e) => {
         // this.$socket.emit('client_img', {data: e.target.result})
@@ -86,11 +82,12 @@ export default {
     .toolBar {
       border-top: 1px solid #ccc;
       height: 40px;
-      padding: 5px 10px;
+      padding: 5px 3px;
 
       .iconfont {
         font-size: 24px;
         cursor: pointer;
+        margin-right: 10px;
       }
 
       .input {
@@ -101,6 +98,7 @@ export default {
     .editArea {
       height: 84px;
       width: 100%;
+      margin-top: 10px;
       background-color: #eee;
       outline: none;
       border: none;

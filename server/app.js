@@ -27,19 +27,19 @@ app.get('/', (req, res) => {
   res.send('hello world')
 })
 
-app.post('/home', (req, res) => {
-  res.header('Access-Control-Allow-Origin', '*')
+app.post('/login', (req, res) => {
+  // res.header('Access-Control-Allow-Origin', '*')
   handleLogin(req.body, res)
 })
 
 app.post('/queryUser', (req, res) => {
-  res.header('Access-Control-Allow-Origin', '*')
+  // res.header('Access-Control-Allow-Origin', '*')
   queryUser(req.body, res)
 })
 
-app.post('/addBuddy', (req, res) => {
-  addBuddy(req.body, res)
-})
+// app.post('/addBuddy', (req, res) => {
+//   addBuddy(req.body, res)
+// })
 
 app.post('/uploadImg', (req, res) => {
   let uploadPath = path.join(rootPath, '../','client/public/mock/img')

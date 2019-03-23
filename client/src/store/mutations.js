@@ -1,4 +1,5 @@
 import axios from 'axios'
+import Vue from 'vue'
 
 export default {
   userMessage(state, data) {
@@ -12,15 +13,19 @@ export default {
     sessionStorage.setItem('state', JSON.stringify(state))
   },
   handleEnterRoom(state, data) {
+    let item = data.item
+    let index = data.index
+
     let roomInfo = {
-      name: data.name,
-      chatUrl: data.imgUrl,
-      roomId: data.roomName,
-      chatId: data.chatWith,
+      name: item.name,
+      chatUrl: item.imgUrl,
+      roomId: item.roomName,
+      chatId: item.chatWith,
     }
 
+    state.changeBg = index
     state.roomInfo = roomInfo
-    changeUnread(state, data.roomName, false)
+    changeUnread(state, item.roomName, false)
 
     sessionStorage.setItem('state', JSON.stringify(state))
   },
@@ -62,8 +67,9 @@ export default {
   senderMsgList(state, data) {                              // 发送者添加消息到msgList
     let content = data.content
     let msgList = state.msgList
-    if(!msgList[data.roomId]) 
+    if(!msgList[data.roomId]) {
       msgList[data.roomId] = []
+    }
     msgList[data.roomId].push(content)
     
     sessionStorage.setItem('state', JSON.stringify(state))
@@ -76,10 +82,11 @@ export default {
     for(let i=0; i<data.length; i++) {
       if(roomList[i])
         data[i].unread += roomList[i].unread
-      else state.msgList[data[i].roomName] = []
+      // else state.msgList[data[i].roomName] = []
+      else Vue.set(state.msgList, data[i].roomName, [])     /////// 保证增加的数组响应式
     }
     state.roomList = data
-    console.log(state.roomList)
+    // console.log(state.roomList)
     sessionStorage.setItem('state', JSON.stringify(state))
   },
   client_sendImg(state, data) {                              // 用户发送图片
@@ -121,7 +128,8 @@ export default {
       isShow: true,
       id: data.id,
       imgUrl: data.imgUrl,
-      name: data.name
+      name: data.name,
+      account: data.account
     }
   },
   handleHiddenCard(state) {
@@ -134,7 +142,8 @@ export default {
       imgUrl: data.imgUrl,
       name: data.name,
       addition: data.addition,
-      id: data.sendId
+      id: data.sendId,
+      account: data.account
     }
   },
   handleHiddenReCard(state) {

@@ -15,7 +15,8 @@ module.exports = (name, res) => {
           let userItem = {
             name: result[i].name,
             id: result[i].id,
-            imgUrl: result[i].imgUrl
+            imgUrl: result[i].imgUrl,
+            account: result[i].account
           }
           data.userMessage.push(userItem)
         }

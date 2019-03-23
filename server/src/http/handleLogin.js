@@ -34,14 +34,23 @@ module.exports = (loginData, res) => {
       })
     }
     else {
-      user.name = loginData.user_name
-      user.id = user.account + Date.now()
-      user.imgUrl = 'mock/init.jpg'
-      user.roomMessage = []
-      dbo.collection('user').insertOne(user, (err, result) => {
+      dbo.collection('user').find({account: user.account}).toArray((err, result) => {
         if(err) throw err
-        res.send('注册成功')
-        db.close()
+        if(result.length) {
+          res.send({ success: false })
+          db.close()
+        }
+        else {
+          user.name = loginData.user_name
+          user.id = user.account + Date.now()
+          user.imgUrl = 'mock/init.jpg'
+          user.roomMessage = []
+          dbo.collection('user').insertOne(user, (err, result) => {
+            if(err) throw err
+            res.send({ success: true })
+            db.close()
+          })
+        }
       })
     }
   })

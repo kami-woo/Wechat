@@ -6,18 +6,23 @@ const client_acceptFriend = require('./function/client_acceptFriend')
 
 let hashList = {}
 let unread = {}
-let cache = {}
+let cache = {}      // 好友添加信息
 
 module.exports = (io) => {
   io.on('connection', async function(socket) {
     console.log('socket连接成功')
     // socket.emit('CONNECT', 'this is server')
     socket.on('client_msg', handleMessage)
+
     socket.on('client_id', (id) => {
       if(id) {
         hashList[id] = socket
         socket.id = id
-        console.log(id)
+        if(cache[id]) {
+          socket.emit('server_addFriend', cache[id])
+          delete cache[id]
+        }
+        // console.log(id)
       }
     })
     socket.emit('getClient_id')
@@ -46,7 +51,7 @@ module.exports = (io) => {
       else {
         cache[data.receiveId] = data
       }
-      console.log(cache)
+      // console.log(cache)
     })
 
     socket.on('client_acceptFriend', (idList) => {       // 同意添加好友

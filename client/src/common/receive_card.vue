@@ -10,7 +10,8 @@
         <span class="name">{{ re_cardInfo.name }}</span> -->
         <img class="img" :src="re_cardInfo.imgUrl">
         <div class="content">
-          <span class="name">{{ re_cardInfo.name }}</span><br>
+          <span class="name">{{ re_cardInfo.name }}</span>
+          <span class="account"> ( {{ re_cardInfo.account }} ) </span><br>
           <span class="addition">附加消息：{{ re_cardInfo.addition }}</span>
           <div class="btn">
             <Button class="deny" @click="handleHiddenReCard">拒绝</Button>
@@ -95,18 +96,14 @@ export default {
             font-size: 20px;
           }
 
-          .addition {
-            margin-top: 20px;
+          .account {
+            font-size: 10px;
           }
 
           .btn {
             margin-top: 20px;
 
-            .deny {
-              // width: 70px;
-            }
             .accept {
-              // width: 70px;
               margin-left: 30px;
             }
           }

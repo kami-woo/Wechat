@@ -132,7 +132,7 @@ export default {
               height: 130px;
               vertical-align: top;
               margin-right: 10px;
-              border-radius: 6px;
+              border-radius: 3px;
               // height: 150px;
               // background-size: cover;
             }
@@ -163,8 +163,8 @@ export default {
             .chat-img-left {
               height: 130px;
               vertical-align: top;
-              margin-left: 10px;
-              border-radius: 6px;
+              // margin-left: 10px;
+              border-radius: 3px;
             }
           }
         }

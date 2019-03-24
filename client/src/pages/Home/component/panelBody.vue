@@ -34,7 +34,10 @@
             <span class="item-time" v-text="newMsg(item.roomName) == undefined ? '' : newMsg(item.roomName).time"></span>
             <div
               class="item-message ellipsis"
-              v-text="newMsg(item.roomName) == undefined ? '' : newMsg(item.roomName).type == 'img' ? '[图片]' : newMsg(item.roomName).msg">  
+              v-text="newMsg(item.roomName) == undefined ?
+                '' : newMsg(item.roomName).type == 'img' ?
+                 '[图片]' : newMsg(item.roomName).type == 'mp3' ?
+                 '[语音]' : newMsg(item.roomName).msg">  
             </div>
           </div>
         </div>

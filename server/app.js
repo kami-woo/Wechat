@@ -9,7 +9,7 @@ const queryUser = require('./src/http/queryUser.js')
 const addBuddy = require('./src/http/addBuddy.js')
 const uploadImg = require('./src/http/uploadImg.js')
 const getRoom = require('./src/http/getRoom.js')
-const client_sendImg = require('./src/http/client_sendImg.js')
+const client_sendComplex = require('./src/http/client_sendComplex.js')
 const handleSocket = require('./src/socket/index.js')
 
 const app = express()
@@ -46,9 +46,9 @@ app.post('/uploadImg', (req, res) => {
   uploadImg(req, res, uploadPath)
 })
 
-app.post('/client_sendImg', (req, res) => {                    // 处理用户发送图片
-  let uploadPath = path.join(rootPath, '../','client/public/mock/chat_img')
-  client_sendImg(req, res, uploadPath)
+app.post('/client_sendComplex', (req, res) => {                    // 处理用户发送图片
+  let uploadPath = path.join(rootPath, '../','client/public/mock')
+  client_sendComplex(req, res, uploadPath)
 })
 
 // app.post('/getRoom', (req, res) => {

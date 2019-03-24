@@ -1,9 +1,9 @@
 <template>
   <div class="box-ft">
     <div class="toolBar">
-      <input type="file" ref="chat_file" accept="image/jpeg,image/jpg,image/png,image/svg" class="input" @change="handleChangeFile">
       <span class="iconfont">&#xe604;</span>
-      <span class="iconfont" @click="handleClickFile">&#xe605;</span>
+      <file-btn></file-btn>
+      <voice-btn></voice-btn>
     </div>
     <textarea class="editArea" ref='editArea' @keyup.enter="sendMsg"></textarea>
     <div class="action">
@@ -14,36 +14,20 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex'
-export default {
-  methods: {
-    handleClickFile() {
-      this.$refs.chat_file.click()
-    },
-    handleChangeFile(e) {
-      let reader
-      if(window.FileReader) {
-        reader = new FileReader();
-      } else {
-        alert("您的设备不支持图片预览功能，如需该功能请升级您的设备！");
-      }
-      let file = e.target.files[0];
-      let imageType = /^image\//;         // 是否是图片
-      if(!imageType.test(file.type)) {
-        alert("请选择图片！");
-        return;
-      }
-      
-      let data = {
-        file,
-        _this: this
-      }
-      this.client_sendImg(data)
+import fileBtn from '../../../common/fileBtn.vue'
+import voiceBtn from '../../../common/voiceBtn.vue'
 
-      reader.onload = (e) => {
-        // this.$socket.emit('client_img', {data: e.target.result})
-      };
-      reader.readAsDataURL(file);
-    },
+export default {
+  data() {
+    return {
+      isVoice: false
+    }
+  },
+  components: {
+    fileBtn,
+    voiceBtn
+  },
+  methods: {
     sendMsg() {
       let editArea = this.$refs.editArea
       let msg = editArea.value
@@ -55,6 +39,7 @@ export default {
       date = date.toLocaleDateString()
       let data = {
         content: {
+          type: 'text',
           msg,
           sender: this.userInfo.id,
           receiver: this.roomInfo.chatId,
@@ -78,21 +63,12 @@ export default {
   .box-ft {
     height: 180px;
     padding: 0 19px;
+    position: relative;
 
     .toolBar {
       border-top: 1px solid #ccc;
       height: 40px;
       padding: 5px 3px;
-
-      .iconfont {
-        font-size: 24px;
-        cursor: pointer;
-        margin-right: 10px;
-      }
-
-      .input {
-        display: none;
-      }
     }
 
     .editArea {

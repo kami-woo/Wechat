@@ -14,7 +14,7 @@ export default {
 <style>
   body, html {
     height: 100%;
-    background: url('./assets/bg.jpg');
+    /*background: url('./assets/bg.jpg');*/
     background-size: cover;
   }
   #app {

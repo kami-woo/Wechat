@@ -4,7 +4,7 @@
     <input class="search-box" @keyup.enter="handleEnter" placeholder="搜索" ref="search_box"/>
     <div class="search-result" :class="{hidden: isActive}" ref="search_result">
       <div class="search-wrap" v-show="search_server.length">
-        <div class="title">搜索结果</div>
+        <div class="title">添加好友</div>
         <div class="item" v-for="item of search_server" @click="handleShowCard(item)">
           <img :src="item.imgUrl" class="result-img">
           <div class="result-name">{{ item.name }}</div>

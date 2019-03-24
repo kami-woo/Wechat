@@ -89,26 +89,28 @@ export default {
     // console.log(state.roomList)
     sessionStorage.setItem('state', JSON.stringify(state))
   },
-  client_sendImg(state, data) {                              // 用户发送图片
+  client_sendComplex(state, data) {                              // 用户发送图片
     let formData = new FormData()
-    formData.append('file', data.file)
+    formData.append('file', data.file,)
 
     let date = new Date()
     let time = date.toTimeString().split(' ')[0]
     date = date.toLocaleDateString()
 
-    formData.append('type', 'img')
+    // formData.append('type', data.type)
     formData.append('sender', state.userInfo.id)
     formData.append('receiver', state.roomInfo.chatId)
     formData.append('date', date)
     formData.append('time', time)
     formData.append('roomId', state.roomInfo.roomId)
     formData.append('nowtime', Date.now())
+    formData.append('duration', data.duration)
 
 
-    axios.post('/api/client_sendImg', formData, {
+    axios.post('/api/client_sendComplex', formData, {
       headers: {'Content-Type': 'multipart/form-data'}
     }).then((res) => {
+      console.log(res.data)
       data._this.$socket.emit('client_msg', res.data)
       state.msgList[res.data.roomId].push(res.data.content)
     }).catch((err) => {

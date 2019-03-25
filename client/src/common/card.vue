@@ -12,7 +12,7 @@
       </div>
       <div class="addition">
         <span class="text">附加消息：</span>
-        <Input class="input" name="addition" v-model="msg" :rows="4" type="textarea" placeholder="Enter something..." />
+        <Input class="textarea" name="addition" v-model="msg" :rows="4" type="textarea" placeholder="Enter something..." />
         <Button class="btn" type="primary" @click="handleAddFriend">加为好友</Button>
       </div>
     </div>
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import drag from '../util/drag.js'
+import drag from '../utils/drag.js'
 import { mapState, mapMutations } from 'vuex'
 
 export default {
@@ -73,7 +73,7 @@ export default {
       color: white;
       font-size: 14px;
       padding-left: 20px;
-      padding-right: 20px;
+      padding-right: 10px;
 
       .iconfont {
         float: right;
@@ -105,7 +105,7 @@ export default {
 
       .addition {
         padding: 30px;
-        .input {
+        .textarea {
           margin-top: 10px;
         }
 

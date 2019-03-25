@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import drag from '../util/drag.js'
+import drag from '../utils/drag.js'
 import { mapState, mapMutations } from 'vuex'
 
 export default {

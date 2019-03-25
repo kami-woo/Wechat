@@ -10,8 +10,12 @@ module.exports = (req, res, uploadPath) => {
     // console.log(files.file)
     let file = files.file
 
-    let size = file.size / 1024
-    size = size/1024 > 1 ? ((size/1024).toFixed(1))+'MB' : size.toFixed(1)+'KB'
+    let size = ''
+    if(file.size) {
+      size = file.size / 1024
+      size = size/1024 > 1 ? ((size/1024).toFixed(1))+'MB' : size.toFixed(1)+'KB'
+    }
+    
 
     let info = {
       sender: fields.sender,

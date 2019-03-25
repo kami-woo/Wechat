@@ -4,7 +4,7 @@
       <div v-for="item of userMsg" class="msgWrap">
         <div v-if="item.sender === userInfo.id" class="bubble-wrap-right">
           <img :src="item.msg" v-if="item.type === 'img'" class="chat-img-right">
-          <span class="bubble-right" v-else-if="item.type === 'text'">{{ item.msg }}</span>
+          <span class="bubble-right" v-else-if="item.type === 'text'" v-html="emoji(item.msg)"></span>
           <span class="bubble-right" v-else-if="item.type === 'mp3'" @click="handleClickVoice">
             <audio :src="item.msg"></audio>
             <i class="iconfont i-right">&#xe62b;</i>
@@ -25,7 +25,7 @@
         </div>
         <div v-else class="bubble-wrap-left">
           <img :src="roomInfo.chatUrl" class="msg-img">
-          <span class="bubble-left" v-if="item.type === 'text'">{{ item.msg }}</span>
+          <span class="bubble-left" v-if="item.type === 'text'" v-html="emoji(item.msg)"></span>
           <span class="bubble-left" v-else-if="item.type === 'mp3'" @click="handleClickVoice">
             <audio :src="item.msg"></audio>
             <span>{{ item.duration }}</span>
@@ -119,9 +119,11 @@ export default {
     min-height: 369px;
     position: relative;
     overflow: hidden;
+    // transition: all 1s ease-out;
 
     .content {
       padding: 10px 0;
+      // transition: all 1s ease-out;
 
       .msgWrap {
         margin: 20px;
@@ -171,6 +173,8 @@ export default {
 
           .chat-img-right {
             height: 130px;
+            // max-height: 130px;
+            max-width: 200px;
             vertical-align: top;
             margin-right: 10px;
             border-radius: 3px;

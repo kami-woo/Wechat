@@ -33,11 +33,12 @@
             <span class="item-name">{{ item.name }}</span>
             <span class="item-time" v-text="newMsg(item.roomName) == undefined ? '' : newMsg(item.roomName).time"></span>
             <div
-              class="item-message ellipsis"
-              v-text="newMsg(item.roomName) == undefined ?
+              class="item-message"
+              v-html="newMsg(item.roomName) == undefined ?
                 '' : newMsg(item.roomName).type == 'img' ?
                  '[图片]' : newMsg(item.roomName).type == 'mp3' ?
-                 '[语音]' : newMsg(item.roomName).msg">  
+                 '[语音]' : newMsg(item.roomName).type == 'file' ?
+                 '[文件]' : emoji(newMsg(item.roomName).msg)">  
             </div>
           </div>
         </div>
@@ -134,10 +135,6 @@ export default {
 
     .wrapper {
       overflow: hidden;
-      // position: relative;
-      // width: 100%;
-      // height: 100%;
-      // border: 5px solid blue;
       width: 280px;
       .content {
         .bscroll-indicator {
@@ -188,15 +185,12 @@ export default {
               float: right;
             }
 
-            .ellipsis {
-              overflow: hidden;
-              text-overflow: ellipsis;
-              white-space: nowrap; 
-            }
-
             .item-message {
               color: #989898;
               font-size: 12px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
             }
           }
         }
@@ -207,5 +201,4 @@ export default {
       }
     }
   }
-  
 </style>

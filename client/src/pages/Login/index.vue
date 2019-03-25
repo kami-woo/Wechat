@@ -88,6 +88,8 @@ export default {
       width: 300px;
       border-radius: 10px;
       background-color: #eee;
+      box-shadow: -2px 2px 10px #333;
+      color: #000;
 
       .loginTabs {
         display: flex;

@@ -7,7 +7,10 @@ import './assets/styles/iconfont.css';
 import VueSocketIO from 'vue-socket.io'
 import router from './router.js'
 import store from './store/index.js'
+import { emoji } from './utils/emoji/emoji.js'
 const url = 'localhost:3000'
+
+Vue.prototype.emoji = emoji
 
 Vue.use(new VueSocketIO({
   debug: true,

@@ -31,7 +31,7 @@ export default {
     height: 100%;
     margin: auto;
     display: flex;
-    // opacity: .97;
+    opacity: .97;
     // border: 1px solid blue;
   }
 </style>

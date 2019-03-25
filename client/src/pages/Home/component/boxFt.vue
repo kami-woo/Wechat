@@ -1,11 +1,11 @@
 <template>
   <div class="box-ft">
     <div class="toolBar">
-      <span class="iconfont">&#xe604;</span>
+      <emoji-btn @emojiCode="handleChoseEmoji"></emoji-btn>
       <file-btn></file-btn>
       <voice-btn></voice-btn>
     </div>
-    <textarea class="editArea" ref='editArea' @keyup.enter="sendMsg"></textarea>
+    <textarea v-model="value" class="editArea" @keyup.enter="sendMsg"></textarea>
     <div class="action">
       <Button class="btn-send" type="primary" @click="sendMsg">发送</Button>
     </div>
@@ -16,23 +16,25 @@
 import { mapState, mapMutations } from 'vuex'
 import fileBtn from '../../../common/fileBtn.vue'
 import voiceBtn from '../../../common/voiceBtn.vue'
+import emojiBtn from '../../../common/emojiBtn.vue'
 
 export default {
   data() {
     return {
-      isVoice: false
+      isVoice: false,
+      value: ''
     }
   },
   components: {
     fileBtn,
-    voiceBtn
+    voiceBtn,
+    emojiBtn
   },
   methods: {
     sendMsg() {
-      let editArea = this.$refs.editArea
-      let msg = editArea.value
-      if(!msg) return
-      editArea.value = ''
+      if(!this.value) return
+      let msg = this.value
+      this.value = ''
       let date = new Date()
       
       let time = date.toTimeString().split(' ')[0]
@@ -50,6 +52,9 @@ export default {
       }
       this.$socket.emit('client_msg', data)
       this.senderMsgList(data)
+    },
+    handleChoseEmoji(code) {
+      this.value += code
     },
     ...mapMutations(['senderMsgList', 'client_sendImg'])
   },

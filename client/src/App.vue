@@ -11,11 +11,13 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less">
   body, html {
     height: 100%;
-    /*background: url('./assets/bg.jpg');*/
-    background-size: cover;
+    background: url('./assets/bg.jpg');
+    background-size: cover;    
+    background-position: center;
+
   }
   #app {
     height: 100%;

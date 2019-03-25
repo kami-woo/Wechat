@@ -8,7 +8,7 @@
 
 <script>
 import { mapMutations } from 'vuex'
-import recorder from '../util/recorder.mp3.min.js'
+import recorder from '../utils/recorder.mp3.min.js'
 
 export default {
   data() {

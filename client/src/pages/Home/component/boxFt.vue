@@ -1,5 +1,5 @@
 <template>
-  <div class="box-ft">
+  <div class="box-ft" v-if="roomInfo.name !== ''">
     <div class="toolBar">
       <emoji-btn @emojiCode="handleChoseEmoji"></emoji-btn>
       <file-btn></file-btn>

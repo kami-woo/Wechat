@@ -6,7 +6,7 @@
         @click="changeActive(index)"
         :class="{'active': index === activeIndex}">{{ pannel }}</li>
     </ul>
-    <ul class="emoji-container">
+    <ul class="emoji-container" ref="wrapper">
       <li 
         v-for="(emojiGroup, index) in emojis" 
         style="padding: 0"
@@ -27,6 +27,7 @@
 </template>
 <script>
 import data from '../utils/emoji/emoji-data.js'
+import Bscroll from 'better-scroll'
 
 export default {
   name: 'emoji',
@@ -62,6 +63,18 @@ export default {
   },
   mounted() {
     document.addEventListener('click', this.handleDocumentClick, false)
+    this.scroll = new Bscroll(this.$refs.wrapper, {
+      mouseWheel: {
+       speed: 3,
+       invert: false,
+       easeTime: 300
+      },
+      scrollbar: {
+       fade: false,
+       interactive: true
+      },
+      click: true
+    })
   },
   destroyed() {
     document.removeEventListener('click', this.handleDocumentClick, false)
@@ -109,14 +122,16 @@ export default {
       }
     }
   }
+
   .emoji-container {
     height: 140px;
-    overflow-y: auto;
+    overflow-y: hidden;
     overflow-x: hidden;
     position: relative;
     li {
       font-size: 0;
       padding: 5px;
+      display: inline-block;
       a {
         float: left;
         overflow: hidden;

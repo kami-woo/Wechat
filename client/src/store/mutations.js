@@ -31,7 +31,9 @@ export default {
   },
   handleLogout(state, data) {
     state.isLogin = false
-    state.roomInfo = {}
+    state.roomInfo = {
+      name: ''
+    }
     state.roomList = []
 
     sessionStorage.setItem('state', '')
@@ -40,6 +42,8 @@ export default {
     let formData = new FormData()
     formData.append('file', data)
     formData.append('id', state.userInfo.id)
+    formData.append('imgUrl', state.userInfo.imgUrl)
+    // state.userInfo.imgUrl = 'mock/change.png'
 
     axios.post('/api/uploadImg', formData, {
       headers: {'Content-Type': 'multipart/form-data'}
@@ -110,22 +114,17 @@ export default {
     axios.post('/api/client_sendComplex', formData, {
       headers: {'Content-Type': 'multipart/form-data'}
     }).then((res) => {
-      console.log(res.data)
       data._this.$socket.emit('client_msg', res.data)
+
+      if(!state.msgList[res.data.roomId]) {
+        Vue.set(state.msgList, res.data.roomId, [])
+      }
       state.msgList[res.data.roomId].push(res.data.content)
     }).catch((err) => {
       console.log(err)
     })
   },
   handleShowCard(state, data) {
-    // axios.post('/api/addBuddy', {
-    //   idList: [state.userInfo.id, id]
-    // }).then((res) => {
-    //   // console.log(res)
-    //   // this.handleRoomList()
-    // }).catch((err) => {
-    //   console.log(err)
-    // })
     state.cardInfo = {
       isShow: true,
       id: data.id,
@@ -150,6 +149,10 @@ export default {
   },
   handleHiddenReCard(state) {
     state.re_cardInfo.isShow = false
+  },
+  handleShowInfoCard(state, data) {
+    state.showInfoCard = data
+    sessionStorage.setItem('state', JSON.stringify(state))
   }
 }
 

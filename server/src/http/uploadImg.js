@@ -11,8 +11,9 @@ module.exports = (req, res, uploadPath) => {
     // console.log(files.file)
     let file = files.file
     let id = fields.id
-    let imgName = id + path.extname(file.name)
+    let imgName = id + Date.now() + path.extname(file.name)
     let newPath = path.join(uploadPath, imgName)
+    let oldPath = path.join(uploadPath, path.basename(fields.imgUrl))
 
     fs.rename(file.path, newPath, (err) => {
       if(err) throw err
@@ -25,6 +26,9 @@ module.exports = (req, res, uploadPath) => {
           result.imgUrl = 'mock/img/' + imgName
           dbUser.updateOne({ id: result.id }, {$set: result}, (err) => {
             if(err) throw err
+            fs.unlink(oldPath, err => {
+              if(err) console.log(err)
+            })
             console.log('头像路径写入成功')
             res.send(result.imgUrl)
           })

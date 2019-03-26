@@ -28,7 +28,8 @@ let init = {
     name: '',
     addition: '',
     account: ''
-  }
+  },
+  showInfoCard: false
 }
 
 let state = sessionStorage.getItem('state') ? JSON.parse(sessionStorage.getItem('state')) : init

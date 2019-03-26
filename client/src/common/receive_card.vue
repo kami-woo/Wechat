@@ -1,8 +1,8 @@
 <template>
   <div class="card-wrap" ref='card' v-show="re_cardInfo.isShow">
-    <div class="card-hd">
+    <div class="card-hd" name="hd">
       系统消息
-      <span class="iconfont" @click="handleHiddenReCard">&#xe600;</span>
+      <span class="iconfont" @click="handleHiddenReCard">&#xe69a;</span>
     </div>
     <div class="card-bd">
       <div class="info">
@@ -72,6 +72,7 @@ export default {
       padding-right: 20px;
 
       .iconfont {
+        font-size: 14px;
         float: right;
         cursor: pointer;
       }

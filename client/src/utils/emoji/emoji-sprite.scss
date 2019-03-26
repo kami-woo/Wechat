@@ -1,13 +1,15 @@
 [class*="sprite-"] {
   width:25px;
   height: 25px;
-  background: url('https://github.com/jkchao/vue-emoji/raw/master/static/thumb/vue-emoji.png');
+  background: url('../static/vue-emoji.png');
   background-repeat: no-repeat;
   vertical-align: top;
   display: inline-block;
   margin: 5px;
   background-size: 882.8125px 867.1875px;
 }
+
+// https://github.com/jkchao/vue-emoji/raw/master/static/thumb/vue-emoji.png
 
 .sprite-a {
   background-position: -1.953125px -1.953125px;

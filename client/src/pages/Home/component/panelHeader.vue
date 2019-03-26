@@ -1,9 +1,8 @@
 <template>
   <div class="headerWrap">
     <div class="header">
-      <img class="img" :src="imgUrl" ref="user_img" @click="handleInputClick"></img>
-      <input type="file" class="upload_img" ref="upload_img" accept="image/jpeg,image/jpg,image/png,image/svg" @change="handleChangeImg"/>
-      <div class="name">{{ userName }}</div>
+      <img class="img" :src="userInfo.imgUrl" ref="user_img" @click="handleShowInfoCard(true)"></img>
+      <div class="name">{{ userInfo.name }}</div>
       <span class="iconfont" ref="iconfont" @click="handleIconfontClick">&#xe631;</span>
     </div>
     <div class="menuWrap" :class="{hidden: isActive}">
@@ -26,38 +25,11 @@ export default {
   props: ['chatList'],
   data() {
     return {
-      userName: '',
-      imgUrl: '',
       isActive: true,
       menuList: [{title: '退出'}],
     }
   },
   methods: {
-    handleInputClick() {
-      this.$refs.upload_img.click()
-    },
-    handleChangeImg(e) {
-      let reader
-      if(window.FileReader) {
-        reader = new FileReader();
-      } else {
-        alert("您的设备不支持图片预览功能，如需该功能请升级您的设备！");
-      }
-      let file = e.target.files[0];
-      let imageType = /^image\//;         // 是否是图片
-      if(!imageType.test(file.type)) {
-        alert("请选择图片！");
-        return;
-      }
-      
-      this.imgMessage(file)
-
-      reader.onload = (e) => {
-        let img = this.$refs.user_img
-        img.src = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    },
     handleIconfontClick() {
       this.isActive = false
     },
@@ -71,12 +43,10 @@ export default {
       this.handleLogout()
       this.$router.push('/login')
     },
-    ...mapMutations(['handleLogout', 'imgMessage'])
+    ...mapMutations(['handleLogout', 'handleShowInfoCard'])
   },
   computed: mapState(['userInfo']),
   mounted() {
-    this.userName = this.userInfo.name
-    this.imgUrl = this.userInfo.imgUrl
     document.addEventListener('click', this.handleBodyClick)
   }
 }
@@ -102,10 +72,7 @@ export default {
         height: 36px;
         border-radius: 5px;
         cursor: pointer;
-      }
-
-      .upload_img {
-        display: none;
+        background-color: #fff;
       }
 
       .name {

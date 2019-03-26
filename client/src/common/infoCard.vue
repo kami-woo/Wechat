@@ -1,54 +1,65 @@
 <template>
-  <div class="card-wrap" ref='card' v-show="cardInfo.isShow">
-    <div class="card-hd">
-      系统消息
-      <span class="iconfont" @click="handleHiddenCard">&#xe600;</span>
+  <div class="card-wrap" ref='card' v-show="showInfoCard">
+    <div class="card-hd" name="hd">
+      个人资料
+      <span class="iconfont" @click="handleShowInfoCard(false)">&#xe69a;</span>
     </div>
     <div class="card-bd">
-      <div class="info">
-        <img class="img" :src="cardInfo.imgUrl">
-        <span class="name">{{ cardInfo.name }}</span>
-        <span name="account">账号：{{ cardInfo.account }}</span>
-      </div>
-      <div class="addition">
-        <span class="text">附加消息：</span>
-        <Input class="textarea" name="addition" v-model="msg" :rows="4" type="textarea" placeholder="Enter something..." />
-        <Button class="btn" type="primary" @click="handleAddFriend">加为好友</Button>
+        <img class="img" ref="img" :src="userInfo.imgUrl" @click="handleImgClick">
+        <input type="file" class="upload_img" ref="upload_img" accept="image/jpeg,image/jpg,image/png,image/svg" @change="handleChangeImg"/>
+        <div class="info">
+          <div class="name">{{userInfo.name}}</div>
+          <div class="account">账号：{{userInfo.account}}</div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import drag from '../util/drag.js'
+import drag from '../utils/drag.js'
 import { mapState, mapMutations } from 'vuex'
 
 export default {
-  name: 'card',
+  name: 'infoCard',
   data() {
     return {
-      msg: ''
+      showCard: true
     }
   },
   methods: {
-    ...mapMutations(['handleHiddenCard']),
-    handleAddFriend() {
-      this.handleHiddenCard()
-
-      let data = {
-        addition: this.msg,
-        imgUrl: this.userInfo.imgUrl,
-        name: this.userInfo.name,
-        sendId: this.userInfo.id,
-        receiveId: this.cardInfo.id,
-        account: this.userInfo.account
+    handleImgClick() {
+      this.$refs.upload_img.click()
+    },
+    handleHiddenCard() {
+      this.showCard = false
+    },
+    handleChangeImg(e) {
+      let reader
+      if(window.FileReader) {
+        reader = new FileReader();
+      } else {
+        alert("您的设备不支持图片预览功能，如需该功能请升级您的设备！");
       }
-      this.$socket.emit('client_addFriend', data)
+      let file = e.target.files[0];
+      // let imageType = /^image\//;         // 是否是图片
+      // if(!imageType.test(file.type)) {
+      //   alert("请选择图片！");
+      //   return;
+      // }
+      
+      this.imgMessage(file)
 
-      this.msg = ''
-    }
+      reader.onload = (e) => {
+        let img = this.$refs.img
+        img.src = e.target.result
+        
+      };
+      reader.readAsDataURL(file);
+    },
+    ...mapMutations(['imgMessage', 'handleShowInfoCard'])
   },
-  computed: mapState(['cardInfo', 'userInfo']),
+  computed: mapState(['userInfo', 'showInfoCard']),
   mounted() {
     drag(document, this.$refs.card)
   }
@@ -58,14 +69,15 @@ export default {
 <style lang="less" scoped>
   .card-wrap {
     position: absolute;
-    height: 280px;
-    width: 500px;
+    height: 180px;
+    width: 300px;
     left: 300px;
     top: 250px;
     border-radius: 5px;
     background-color: rgb(245, 245, 245);
     box-shadow: -2px 2px 10px #ccc;
     overflow: hidden;
+
     .card-hd {
       height: 42px;
       line-height: 42px;
@@ -73,45 +85,43 @@ export default {
       color: white;
       font-size: 14px;
       padding-left: 20px;
-      padding-right: 20px;
+      padding-right: 10px;
 
       .iconfont {
+        font-size: 14px;
         float: right;
         cursor: pointer;
       }
     }
 
     .card-bd {
+      padding: 19px 19px;
       display: flex;
-
-      .info {
-        width: 200px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-        .img {
-          height: 120px;
-          width: 120px;
-          border-radius: 10px;
-          margin-top: 30px;
-        }
-
-        .name {
-          margin-top: 8px;
-          font-size: 20px;
-        }
+      .img {
+        height: 100px;
+        width: 100px;
+        border-radius: 50px;
+        cursor: pointer;
       }
 
-      .addition {
-        padding: 30px;
-        .textarea {
-          margin-top: 10px;
+      .upload_img {
+        display: none;
+      }
+
+      .info {
+        // border: 1px solid blue;
+        // flex: 1;
+        margin-left: 30px;
+
+        .name {
+          font-size: 30px;
+          font-weight: 400;
+          padding-top: 10px;
         }
 
-        .btn {
-          margin-top: 20px;
-        }
+        // .account {
+        //   margin-left: 10px;
+        // }
       }
     }
   }

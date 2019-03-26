@@ -47,16 +47,10 @@ module.exports = (req, res, uploadPath) => {
       fileName = 'chat_file'
     }
 
-    // console.log(files)
-    // console.log(info)
-
-
     let roomId = fields.roomId
     let imgName = info.unique + info.name
     let newPath = path.join(uploadPath, fileName, imgName)
 
-    // console.log('\n')
-    // console.log(newPath)
 
     info.msg = `mock/${fileName}/${imgName}`
 

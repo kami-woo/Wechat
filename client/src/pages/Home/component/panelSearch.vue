@@ -1,7 +1,7 @@
 <template>
   <div class="search">
     <i class="iconfont">&#xe603;</i>
-    <input class="search-box" @keyup.enter="handleEnter" placeholder="搜索" ref="search_box"/>
+    <input class="search-box" @keyup.enter="handleEnter" placeholder="搜索" ref="search_box" v-model="search_value"/>
     <div class="search-result" :class="{hidden: isActive}" ref="search_result">
       <div class="search-wrap" v-show="search_server.length">
         <div class="title">添加好友</div>
@@ -28,6 +28,7 @@ import axios from 'axios'
 export default {
   data() {
     return {
+      search_value: '',
       isActive: true,
       search_server: [],
       search_friend: [],
@@ -37,15 +38,14 @@ export default {
   methods: {
     handleEnter(e) {
       this.search_server = []
-      let value = e.target.value
 
       axios.post('/api/queryUser', {
-        name: value
+        account: this.search_value
       }).then((res) => {
         if(res.data && res.data.success) {
           this.search_server = res.data.userMessage
         }
-        this.handleSearchResult(value)
+        this.handleSearchResult(this.search_value)
         this.isActive = false
       }).catch((res) => {
         console.log(res)
@@ -68,16 +68,17 @@ export default {
       }
 
       for (let i=0; i<this.search_server.length; i++) {
+        if(this.search_server[i].id === this.userInfo.id) {
+          this.search_server.splice(i, 1)
+          i -= 1
+          continue
+        }
         for (let j=0; j<this.search_friend.length; j++) {
           if(this.search_server[i].id === this.search_friend[j].chatWith) {
             this.search_server.splice(i, 1)
             i -= 1
             break
           }
-        }
-        if(this.search_server[i].id === this.userInfo.id) {
-          this.search_server.splice(i, 1)
-          i -= 1
         }
       }
     },

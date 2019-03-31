@@ -8,12 +8,17 @@ import VueSocketIO from 'vue-socket.io'
 import router from './router.js'
 import store from './store/index.js'
 import { emoji } from './utils/emoji/emoji.js'
+// <link rel="stylesheet" href="animate.min.css">
+import animate from 'animate.css'
+
+Vue.use(animate)
+
 const url = 'localhost:3000'
 
 Vue.prototype.emoji = emoji
 
 Vue.use(new VueSocketIO({
-  debug: true,
+  debug: false,
   connection: url,
   vuex: {
     store,

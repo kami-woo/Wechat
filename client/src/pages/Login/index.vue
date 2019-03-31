@@ -2,45 +2,55 @@
   <div class="login-wrap">
     <div class="loginCard">
       <Tabs class="loginTabs">
-        <TabPane label="登陆" class="tabpane">
+        <TabPane label="登陆" class="tabpane-login">
           <div>
-            账号：<Input prefix="ios-contact" v-model="user_account" placeholder="Enter account" style="width: auto" />
+            <Input size="large" prefix="ios-contact" v-model="user_account" placeholder="Enter account" style="width: auto" />
           </div>
           <div class='item-wrap'>
-            密码：<Input prefix="ios-contact" v-model="user_password" placeholder="Enter password" style="width: auto" />
+            <Input size="large" type="password" prefix="md-unlock" v-model="user_password" placeholder="Enter password" style="width: auto" />
           </div>
           <Button class="btn-login" type="primary" @click="handleLogin(true)">登陆</Button>
         </TabPane>
         <TabPane label="注册" class="tabpane">
           <div>
-            用户名：<Input prefix="ios-contact" v-model="user_name" placeholder="Enter username" style="width: auto" />
+            用户名：<Input prefix="ios-ionitron" v-model="user_name" placeholder="Enter username" style="width: auto" />
           </div>
           <div>
             账号：<Input prefix="ios-contact" v-model="user_account" placeholder="Enter account" style="width: auto" />
           </div>
           <div>
-            密码：<Input prefix="ios-contact" v-model="user_password" placeholder="Enter password" style="width: auto" />
+            密码：<Input prefix="md-unlock" v-model="user_password" placeholder="Enter password" style="width: auto" />
           </div>
           <Button class="btn-login" type="primary" @click="handleLogin(false)">注册</Button>
         </TabPane>
       </Tabs>
     </div>
+    <tip-card :showTip="showTip" :tipMsg="tipMsg" @hidden="handleHiddenCard"></tip-card>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
 import { mapMutations } from 'vuex'
+import tipCard from '../../common/tipCard.vue'
 export default {
   name: 'login',
   data() {
     return {
       user_name: '',
       user_account: '',
-      user_password: ''
+      user_password: '',
+      showTip: true,
+      tipMsg: ''
     }
   },
+  components: {
+    tipCard
+  },
   methods: {
+    handleHiddenCard() {
+      this.showTip = false
+    },
     handleLogin(isRegister) {
       axios.post('/api/login', {
         user_name: this.user_name,
@@ -55,14 +65,20 @@ export default {
             this.$socket.emit('client_id', res.data.userMessage.id)
           }
           else {
-            alert('账号或密码错误')
+            // alert('账号或密码错误')
+            this.tipMsg = '账号或密码错误啦，重新检查一下吧~'
+            this.showTip = true
           }
         }
         else {
           if(res.data.success) {
-            alert('注册成功')
+            this.tipMsg = '注册成功，赶紧登陆使用吧~'
+            this.showTip = true
           }
-          else alert('注册失败，账号重复')
+          else {
+            this.tipMsg = '账号重复啦，换个账号吧'
+            this.showTip = true
+          }
         }
       }).catch((res) => {
         console.log(res)
@@ -79,7 +95,7 @@ export default {
     height: 100%;
 
     .loginCard {
-      opacity: .93;
+      opacity: .9;
       position: absolute;
       top: 50%;
       left: 70%;
@@ -87,7 +103,7 @@ export default {
       padding: 20px;
       width: 300px;
       border-radius: 10px;
-      background-color: #eee;
+      background-color: #fff;
       box-shadow: -2px 2px 10px #333;
       color: #000;
 
@@ -107,6 +123,19 @@ export default {
           div {
             text-align: right;
             margin-right: 5px;
+            margin-top: 5px;
+          }
+
+          .btn-login {
+            margin-top: 20px;
+          }
+        }
+
+        .tabpane-login {
+          margin-top: 10px;
+          text-align: center;
+
+          div {
             margin-top: 5px;
           }
 

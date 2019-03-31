@@ -153,7 +153,7 @@ export default {
   handleShowInfoCard(state, data) {
     state.showInfoCard = data
     sessionStorage.setItem('state', JSON.stringify(state))
-  }
+  },
 }
 
 const changeUnread = (state, roomId, opt) => {               // 处理unread值

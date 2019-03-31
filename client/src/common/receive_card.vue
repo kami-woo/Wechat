@@ -1,26 +1,31 @@
 <template>
-  <div class="card-wrap" ref='card' v-show="re_cardInfo.isShow">
-    <div class="card-hd" name="hd">
-      系统消息
-      <span class="iconfont" @click="handleHiddenReCard">&#xe69a;</span>
-    </div>
-    <div class="card-bd">
-      <div class="info">
-        <!-- <img class="img" :src="re_cardInfo.imgUrl">
-        <span class="name">{{ re_cardInfo.name }}</span> -->
-        <img class="img" :src="re_cardInfo.imgUrl">
-        <div class="content">
-          <span class="name">{{ re_cardInfo.name }}</span>
-          <span class="account"> ( {{ re_cardInfo.account }} ) </span><br>
-          <span class="addition">附加消息：{{ re_cardInfo.addition }}</span>
-          <div class="btn">
-            <Button class="deny" @click="handleHiddenReCard">拒绝</Button>
-            <Button class="accept" type="primary" @click="handleAcceptFriend">接受</Button>
+  <transition
+    enter-active-class="animated bounceIn"
+    leave-active-class="animated bounceOut"
+  >
+    <div class="card-wrap" ref='card' v-show="re_cardInfo.isShow">
+      <div class="card-hd" name="hd">
+        系统消息
+        <span class="iconfont" @click="handleHiddenReCard">&#xe69a;</span>
+      </div>
+      <div class="card-bd">
+        <div class="info">
+          <!-- <img class="img" :src="re_cardInfo.imgUrl">
+          <span class="name">{{ re_cardInfo.name }}</span> -->
+          <img class="img" :src="re_cardInfo.imgUrl">
+          <div class="content">
+            <span class="name">{{ re_cardInfo.name }}</span>
+            <span class="account"> ( {{ re_cardInfo.account }} ) </span><br>
+            <span class="addition">附加消息：{{ re_cardInfo.addition }}</span>
+            <div class="btn">
+              <Button class="deny" @click="handleHiddenReCard">拒绝</Button>
+              <Button class="accept" type="primary" @click="handleAcceptFriend">接受</Button>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>

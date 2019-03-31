@@ -2,34 +2,40 @@
   <div class="search">
     <i class="iconfont">&#xe603;</i>
     <input class="search-box" @keyup.enter="handleEnter" placeholder="搜索" ref="search_box" v-model="search_value"/>
-    <div class="search-result" :class="{hidden: isActive}" ref="search_result">
-      <div class="search-wrap" v-show="search_server.length">
-        <div class="title">添加好友</div>
-        <div class="item" v-for="item of search_server" @click="handleShowCard(item)">
-          <img :src="item.imgUrl" class="result-img">
-          <div class="result-name">{{ item.name }}</div>
+    <transition
+      enter-active-class="animated flipInX"
+      leave-active-class="animated flipOutX"
+    >
+      <div class="search-result" v-show="isActive" ref="search_result">
+        <div class="search-wrap" v-show="search_server.length">
+          <div class="title">添加好友</div>
+          <div class="item" v-for="item of search_server" @click="handleShowCard(item)">
+            <img :src="item.imgUrl" class="result-img">
+            <div class="result-name">{{ item.name }}</div>
+          </div>
         </div>
-      </div>
-      <div class="search-wrap" v-show="search_friend.length">
-        <div class="title">好友</div>
-        <div class="item" v-for="(item, index) of search_friend" @click="handleClickFriend(item, index)">
-          <img :src="item.imgUrl" class="result-img">
-          <div class="result-name">{{ item.name }}</div>
+        <div class="search-wrap" v-show="search_friend.length">
+          <div class="title">好友</div>
+          <div class="item" v-for="(item, index) of search_friend" @click="handleClickFriend(item, index)">
+            <img :src="item.imgUrl" class="result-img">
+            <div class="result-name">{{ item.name }}</div>
+          </div>
         </div>
+        <div class="notFound" v-if="!search_friend.length && !search_server.length">无匹配结果</div>
       </div>
-      <div class="notFound" v-if="!search_friend.length && !search_server.length">无匹配结果</div>
-    </div>
+    </transition>
   </div>
 </template>
 
 <script>
 import { mapState, mapMutations } from 'vuex'
 import axios from 'axios'
+
 export default {
   data() {
     return {
       search_value: '',
-      isActive: true,
+      isActive: false,
       search_server: [],
       search_friend: [],
       friend_index: []
@@ -46,14 +52,14 @@ export default {
           this.search_server = res.data.userMessage
         }
         this.handleSearchResult(this.search_value)
-        this.isActive = false
+        this.isActive = true
       }).catch((res) => {
         console.log(res)
       })
     },
     handleBodyClick(e) {
       if(e.target !== this.$refs.search_result && e.target !== this.$refs.search_box)
-        this.isActive = true
+        this.isActive = false
     },
     handleSearchResult(value) {
       this.search_friend = []
@@ -104,9 +110,9 @@ export default {
 <style lang="less">
   .search {
     text-align: center;
-    // border-bottom: 1px solid #24272c;
     padding: 0 20px 10px 20px;
     position: relative;
+    // overflow: hidden;
 
     .iconfont {
       left: 25px;
@@ -127,6 +133,7 @@ export default {
     }
 
     .search-result {
+      // overflow: hidden;
       position: absolute;
       width: 240px;
       background-color: rgb(51,54,59);
@@ -179,10 +186,6 @@ export default {
         color: #787b87;
         font-size: 14px;
       }
-    }
-
-    .hidden {
-      display: none;
     }
   }
 </style>

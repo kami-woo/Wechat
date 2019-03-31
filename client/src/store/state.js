@@ -29,7 +29,7 @@ let init = {
     addition: '',
     account: ''
   },
-  showInfoCard: false
+  showInfoCard: false,
 }
 
 let state = sessionStorage.getItem('state') ? JSON.parse(sessionStorage.getItem('state')) : init

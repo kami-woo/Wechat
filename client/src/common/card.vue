@@ -1,22 +1,27 @@
 <template>
-  <div class="card-wrap" ref='card' v-show="cardInfo.isShow">
-    <div class="card-hd" name="hd">
-      系统消息
-      <span class="iconfont" @click="handleHiddenCard">&#xe69a;</span>
-    </div>
-    <div class="card-bd">
-      <div class="info">
-        <img class="img" :src="cardInfo.imgUrl">
-        <span class="name">{{ cardInfo.name }}</span>
-        <span>账号：{{ cardInfo.account }}</span>
+  <transition
+    enter-active-class="animated bounceIn"
+    leave-active-class="animated bounceOut"
+  >
+    <div class="card-wrap" ref='card' v-show="cardInfo.isShow">
+      <div class="card-hd" name="hd">
+        系统消息
+        <span class="iconfont" @click="handleHiddenCard">&#xe69a;</span>
       </div>
-      <div class="addition">
-        <span class="text">附加消息：</span>
-        <Input class="textarea" v-model="msg" :rows="4" type="textarea" placeholder="Enter something..." />
-        <Button class="btn" type="primary" @click="handleAddFriend">加为好友</Button>
+      <div class="card-bd">
+        <div class="info">
+          <img class="img" :src="cardInfo.imgUrl">
+          <span class="name">{{ cardInfo.name }}</span>
+          <span>账号：{{ cardInfo.account }}</span>
+        </div>
+        <div class="addition">
+          <span class="text">附加消息：</span>
+          <Input class="textarea" v-model="msg" :rows="4" type="textarea" placeholder="Enter something..." />
+          <Button class="btn" type="primary" @click="handleAddFriend">加为好友</Button>
+        </div>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>

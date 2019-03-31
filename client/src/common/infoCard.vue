@@ -1,19 +1,25 @@
 <template>
-  <div class="card-wrap" ref='card' v-show="showInfoCard">
-    <div class="card-hd" name="hd">
-      个人资料
-      <span class="iconfont" @click="handleShowInfoCard(false)">&#xe69a;</span>
-    </div>
-    <div class="card-bd">
-        <img class="img" ref="img" :src="userInfo.imgUrl" @click="handleImgClick">
-        <input type="file" class="upload_img" ref="upload_img" accept="image/jpeg,image/jpg,image/png,image/svg" @change="handleChangeImg"/>
-        <div class="info">
-          <div class="name">{{userInfo.name}}</div>
-          <div class="account">账号：{{userInfo.account}}</div>
+  <transition
+    enter-active-class="animated fadeIn"
+    leave-active-class="animated fadeOut"
+  >
+    <div class="card-wrap" ref='card' v-show="showInfoCard">
+      <div class="card-hd" name="hd">
+        个人资料
+        <span class="iconfont" @click="handleShowInfoCard(false)">&#xe69a;</span>
+      </div>
+      <div class="card-bd">
+          <img class="img" ref="img" :src="userInfo.imgUrl" @click="handleImgClick">
+          <input type="file" class="upload_img" ref="upload_img" accept="image/jpeg,image/jpg,image/png,image/svg" @change="handleChangeImg"/>
+          <div class="info">
+            <div class="name">{{userInfo.name}}</div>
+            <div class="account">账号：{{userInfo.account}}</div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </transition>
+  
 </template>
 
 <script>

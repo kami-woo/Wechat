@@ -23,12 +23,12 @@ let router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  if(to.name != 'home') {
-    if(store.state.isLogin) {
-      next({ path: '/home' })
+  if(to.name != 'home') {               // 判断是否跳转到home
+    if(store.state.isLogin) {           // 判断登陆状态
+      next({ path: '/home' })           // 是则跳转
     }
     else {
-      if(to.name === 'login') next()
+      if(to.name === 'login') next()    // 否则跳转到login
       else next({path: '/login'})
     }
   }

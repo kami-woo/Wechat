@@ -1,8 +1,13 @@
 <template>
   <span class="wrapper">
-    <div class="emoji-box" v-if="showEmoji">
-      <vue-emoji ref="emojiBox" @close="handleCloseEmoji" @select="handleSelectEmoji"></vue-emoji>
-    </div>
+    <transition
+      enter-active-class="animated zoomInUp"
+      leave-active-class="animated zoomOut"
+    >
+      <div class="emoji-box" v-if="showEmoji">
+        <vue-emoji ref="emojiBox" @close="handleCloseEmoji" @select="handleSelectEmoji"></vue-emoji>
+      </div>
+    </transition>
     <span class="iconfont" @click="handleClickEmoji" ref="emojiBtn" name="emojiBtn">&#xe604;</span>
   </span>
 </template>
@@ -40,6 +45,7 @@ export default {
     .emoji-box {
       display: inline-block;
       position: relative;
+      animation-duration: .5s;
     }
 
     .iconfont {

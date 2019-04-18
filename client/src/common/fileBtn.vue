@@ -14,12 +14,12 @@ export default {
       this.$refs.chat_file.click()
     },
     handleChangeFile(e) {
-      let reader
-      if(window.FileReader) {
-        reader = new FileReader();
-      } else {
-        alert("您的设备不支持图片预览功能，如需该功能请升级您的设备！");
-      }
+      // let reader
+      // if(window.FileReader) {
+      //   reader = new FileReader();
+      // } else {
+      //   alert("您的设备不支持图片预览功能，如需该功能请升级您的设备！");
+      // }
       let file = e.target.files[0];
 
       let data = {

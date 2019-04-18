@@ -58,8 +58,7 @@ export default {
 
       reader.onload = (e) => {
         let img = this.$refs.img
-        img.src = e.target.result
-        
+        img.src = e.target.result  
       };
       reader.readAsDataURL(file);
     },

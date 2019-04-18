@@ -95,7 +95,7 @@ export default {
   },
   client_sendComplex(state, data) {                              // 用户发送图片
     let formData = new FormData()
-    formData.append('file', data.file,)
+    formData.append('file', data.file)
 
     let date = new Date()
     let time = date.toTimeString().split(' ')[0]

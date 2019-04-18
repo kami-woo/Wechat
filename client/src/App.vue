@@ -17,6 +17,7 @@ export default {
     background: url('./assets/bg.jpg');
     background-size: cover;    
     background-position: center;
+    overflow: hidden;
 
   }
   #app {

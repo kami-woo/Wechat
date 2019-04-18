@@ -38,7 +38,7 @@ export default {
     position: absolute;
     height: 142px;
     width: 300px;
-    left: 300px;
+    left: 500px;
     top: 250px;
     border-radius: 5px;
     background-color: rgb(245, 245, 245);

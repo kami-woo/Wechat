@@ -33,6 +33,8 @@ export default {
       let msg = this.$refs.richInput.innerHTML
       this.$refs.richInput.innerHTML = ''
       if(!msg) return
+      console.log(msg)
+      msg = msg.replace(/<div><br><\/div>/,'')
       let date = new Date()
       
       let time = date.toTimeString().split(' ')[0]
@@ -93,10 +95,11 @@ export default {
   },
   watch: {
     emojiCode() {
+      // console.log(this.emojiCode)
       if(!this.emojiCode) return
-      let richInput = this.$refs.richInput
+      // let richInput = this.$refs.richInput
 
-      let start = this.lastRange.startOffset
+      // let start = this.lastRange.startOffset
 
 
       let emoji = this.emoji(this.emojiCode)

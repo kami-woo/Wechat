@@ -4,14 +4,6 @@ Object.values(data).forEach(item => {
   emojiData = { ...emojiData, ...item }
 })
 
-/**
- *
- *
- * @export
- * @param {string} value
- * @returns {string}
- */
-
 export function emoji (value) {
   if (!value) return
   Object.keys(emojiData).forEach(item => {

@@ -40,7 +40,7 @@ export default {
       user_name: '',
       user_account: '',
       user_password: '',
-      showTip: true,
+      showTip: false,
       tipMsg: ''
     }
   },
